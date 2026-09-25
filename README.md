@@ -30,3 +30,9 @@ wedding/
 3. API 선택: **Dynamic Map**, **Geocoding** 체크
 4. **Web 서비스 URL** 에 청첩장 주소 입력 (예: `https://아이디.github.io`)
 5. 등록 후 **인증 정보 → Client ID** 를 복사해서 `config.js` 의 `naverMapKey: ''` 따옴표 안에 붙여넣기
+
+## 카카오톡 공유 켜기 (선택)
+키가 없어도 버튼은 작동해요(휴대폰 공유창이 열리고 거기서 카카오톡 선택). 키를 넣으면 사진·제목이 들어간 예쁜 카드로 보내져요.
+1. [카카오 디벨로퍼스](https://developers.kakao.com) 로그인 → **내 애플리케이션 → 애플리케이션 추가**
+2. 앱 설정 → **플랫폼 → Web → 사이트 도메인**에 `https://jeonghj999.github.io` 등록
+3. **앱 키 → JavaScript 키** 복사 → `js/config.js` 의 `kakaoKey: ''` 에 붙여넣기

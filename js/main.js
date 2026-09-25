@@ -284,8 +284,11 @@
   };
   var CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
   function fold(icon, title, body) {
-    return '<details class="fold"><summary><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' +
-      (ICONS[icon] || '') + '</svg>' + esc(title) + CHEV + '</summary><div class="fold-body">' + body + '</div></details>';
+    // icon: 이모지(예 🚊) 또는 ICONS 에 있는 이름
+    var ico = ICONS[icon]
+      ? '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[icon] + '</svg>'
+      : '<span class="emoji" aria-hidden="true">' + esc(icon || '') + '</span>';
+    return '<details class="fold"><summary>' + ico + esc(title) + CHEV + '</summary><div class="fold-body">' + body + '</div></details>';
   }
 
   /* ---------- 오시는 길 ---------- */
@@ -300,8 +303,7 @@
   var L = VN.links || {};
   $('mapLinks').innerHTML = [
     [L.naver || 'https://map.naver.com/p/search/' + q, '네이버 지도', '#03C75A', 'N'],
-    [L.kakao || 'https://map.kakao.com/link/search/' + q, '카카오맵', '#FAE100', 'K'],
-    [L.tmap || 'tmap://search?name=' + q, '티맵', '#EF3F48', 'T']
+    [L.kakao || 'https://map.kakao.com/link/search/' + q, '카카오맵', '#FAE100', 'K']
   ].map(function (l) {
     return '<a href="' + l[0] + '" target="_blank" rel="noopener"><i style="background:' + l[2] +
       (l[3] === 'K' ? ';color:#3A1D1D' : '') + '">' + l[3] + '</i>' + l[1] + '</a>';
@@ -384,8 +386,8 @@
     }).join('');
   }
   $('accounts').innerHTML =
-    fold('groom', '신랑 측 계좌번호', accBody(ACC.groom || [])) +
-    fold('bride', '신부 측 계좌번호', accBody(ACC.bride || []));
+    fold('🤵🏻', '신랑 측 계좌번호', accBody(ACC.groom || [])) +
+    fold('👰🏻‍♀️', '신부 측 계좌번호', accBody(ACC.bride || []));
   $('accounts').addEventListener('click', function (e) {
     var b = e.target.closest('.copy-btn');
     if (!b || b.disabled) return;
@@ -415,6 +417,37 @@
     }, { rootMargin: '0px 0px -12% 0px' });
     items.forEach(function (el) { io.observe(el); });
   })();
+
+  /* ---------- 공유하기 ---------- */
+  var SH = W.share || {};
+  var shareUrl = SH.url || location.href.split('#')[0];
+  $('shareLink').addEventListener('click', function () {
+    copy(shareUrl, '청첩장 주소가 복사되었어요');
+  });
+  function nativeShare() {   // 휴대폰 기본 공유창 (카카오톡 선택 가능)
+    if (navigator.share) {
+      navigator.share({ title: SH.title, text: SH.description, url: shareUrl }).catch(function () {});
+    } else copy(shareUrl, '주소를 복사했어요. 카카오톡에 붙여넣어 보내주세요');
+  }
+  if (SH.kakaoKey) {
+    var ks = document.createElement('script');
+    ks.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+    ks.crossOrigin = 'anonymous';
+    ks.onload = function () {
+      if (window.Kakao && !Kakao.isInitialized()) Kakao.init(SH.kakaoKey);
+    };
+    document.head.appendChild(ks);
+  }
+  $('shareKakao').addEventListener('click', function () {
+    if (window.Kakao && Kakao.isInitialized && Kakao.isInitialized()) {
+      var link = { mobileWebUrl: shareUrl, webUrl: shareUrl };
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: { title: SH.title, description: SH.description, imageUrl: SH.image, link: link },
+        buttons: [{ title: '청첩장 보기', link: link }]
+      });
+    } else nativeShare();
+  });
 
   /* ---------- 엔딩 크레딧 ---------- */
   var E = W.ending || {};

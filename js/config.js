@@ -51,8 +51,7 @@ window.WEDDING = {
     // 지도 앱 바로가기 — 공유하기로 복사한 주소를 붙여넣으세요. 비워두면 예식장 이름으로 검색합니다.
     links: {
       naver: 'https://naver.me/5suYqk32',
-      kakao: 'https://kko.to/9NR5bC5NyW',
-      tmap: ''          // 티맵 앱 → 장소 → 공유 → 링크 복사 후 붙여넣기
+      kakao: 'https://kko.to/9NR5bC5NyW'
     },
 
     // 네이버 지도 키 — README의 "네이버 지도 켜기"를 보고 발급받아 넣으면 화면에 지도가 나타납니다.
@@ -66,29 +65,23 @@ window.WEDDING = {
   },
 
   // [8] 오시는 길 — 제목을 누르면 아래로 펼쳐집니다. 항목을 더하거나 빼도 됩니다.
-  //     lines 안 한 줄 = 화면의 한 줄. 줄 안의 ' > ' 는 화살표로 바뀝니다.
+  //     icon 은 이모지를 그대로 넣으면 됩니다. lines 안 한 줄 = 화면의 한 줄. 줄 안의 ' > ' 는 화살표로 바뀝니다.
   directions: [
     {
-      icon: 'subway', title: '지하철',
+      icon: '🚊', title: '지하철',
       items: [
         { label: '9호선 당산역', color: '#B5A06F', lines: ['13번 출구 > 도보 2분'] }
       ]
     },
     {
-      icon: 'car', title: '자가용',
-      items: [
-        { label: '내비게이션', lines: ["'당산 그랜드컨벤션센터' 또는 '양평로 58' 검색"] }
-      ]
-    },
-    {
-      icon: 'parking', title: '주차',
+      icon: '🅿️', title: '주차',
       items: [
         { label: '본관 (지상 1·2 주차장)', lines: ['약 200대 수용 · 2시간 무료'] },
         { label: '이레빌딩 (제휴)', lines: ['약 450대 수용 · 3시간 무료'] }
       ]
     },
     {
-      icon: 'shuttle', title: '셔틀버스',
+      icon: '🚌', title: '셔틀버스',
       items: [
         { label: '이레빌딩 ↔ 웨딩홀', lines: ['셔틀버스 5대 상시 운행'] }
       ]
@@ -120,5 +113,16 @@ window.WEDDING = {
       ['Story begins', '2027.03.06'],
       ['Special thanks to', '축하를 보내주신 분들께']
     ]
+  },
+
+  // [11] 공유하기 (맨 아래)
+  share: {
+    url: 'https://jeonghj999.github.io/wedding/',   // 청첩장 주소 (도메인을 사면 바꿔주세요)
+    title: '정연호 ♥ 정현진 결혼합니다',
+    description: '2027년 3월 6일 토요일 오후 1시 · 당산 그랜드컨벤션센터',
+    image: 'https://jeonghj999.github.io/wedding/images/main.jpg',
+    // 카카오 JavaScript 키 — README의 "카카오톡 공유 켜기"를 보고 넣어주세요.
+    // 비워두면 휴대폰 기본 공유창(여기서 카카오톡 선택 가능)이 열립니다.
+    kakaoKey: ''
   }
 };
