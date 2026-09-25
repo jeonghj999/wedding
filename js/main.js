@@ -22,10 +22,18 @@
   var h12 = H % 12 || 12;
   var dotDate = Y + '. ' + pad(M + 1) + '. ' + pad(D);
 
-  $('coverDate').innerHTML = dotDate + ' &nbsp;' + DOW_EN[dow] + '&nbsp; ' + h12 + ':' + pad(MIN) + ' ' + (H < 12 ? 'AM' : 'PM');
-  $('dateKo').textContent = Y + '년 ' + (M + 1) + '월 ' + D + '일 ' + DOW_KO[dow] + '요일 ' +
-    (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : '');
-  $('calMonth').textContent = MON_EN[M];
+  // 페이지마다 있는 칸만 채웁니다 (시안 A/B 공용)
+  function put(id, v, html) { var e = $(id); if (e) e[html ? 'innerHTML' : 'textContent'] = v; }
+  var DOW_FULL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var MON_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var time12 = h12 + ':' + pad(MIN) + (H < 12 ? 'AM' : 'PM');
+  put('coverDate', dotDate + ' &nbsp;' + DOW_EN[dow] + '&nbsp; ' + h12 + ':' + pad(MIN) + ' ' + (H < 12 ? 'AM' : 'PM'), true);
+  put('dateKo', Y + '년 ' + (M + 1) + '월 ' + D + '일 ' + DOW_KO[dow] + '요일 ' +
+    (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : ''));
+  put('calMonth', $('calMonth') && $('calMonth').dataset.full ? MON_FULL[M] + '.' : MON_EN[M]);
+  put('kvDate', dotDate.replace(/ /g, ''));
+  put('kvTime', DOW_EN[dow] + ' ' + time12);
+  put('dateEn', DOW_FULL[dow] + ', ' + MON_FULL[M] + ' ' + D + ', ' + Y + ' · ' + time12);
 
   /* ---------- 감성 문구 ---------- */
   $('message').innerHTML = W.message.map(function (line) {
@@ -37,6 +45,13 @@
 
   /* ---------- 달력 ---------- */
   (function () {
+    var cal = $('calendar');
+    if (cal && cal.tagName !== 'TABLE') {   // 시안 B: 요일 없이 숫자만 흘러가는 달력
+      var last0 = new Date(Date.UTC(Y, M + 1, 0)).getUTCDate(), out = '';
+      for (var n = 1; n <= last0; n++) out += '<span' + (n === D ? ' class="day-mark"' : '') + '>' + n + '</span>';
+      cal.innerHTML = out;
+      return;
+    }
     var first = new Date(Date.UTC(Y, M, 1)).getUTCDay();
     var last = new Date(Date.UTC(Y, M + 1, 0)).getUTCDate();
     var html = '<thead><tr>' + ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(function (d, i) {
@@ -80,6 +95,7 @@
     else if (days === 0) text = '오늘, ' + namesKo + ' 두 사람이 결혼합니다.';
     else text = namesKo + ' 두 사람이 부부가 된 지 <b>' + (-days) + '일</b>째입니다.';
     $('ddayText').innerHTML = text;
+    put('dday', days > 0 ? 'D-' + days : days === 0 ? 'D-DAY' : 'D+' + (-days));
   }
   tick();
   setInterval(tick, 1000);
@@ -483,7 +499,9 @@
     svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     svg.innerHTML = '<path d="' + path(1, 22) + '"/><path class="inner" d="' + path(9, 15) + '"/>';
   }
+  if (document.querySelector('.frame')) {
   drawFrame();
   window.addEventListener('resize', drawFrame);
   if (window.ResizeObserver) new ResizeObserver(drawFrame).observe(document.querySelector('.card'));
+  }
 })();

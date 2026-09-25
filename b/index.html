@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- 이 페이지(시안 B)는 한 단계 위 폴더의 사진·스크립트를 같이 씁니다 -->
+  <base href="../">
+  <title>Yeonho &amp; Hyeonjin</title>
+  <meta name="description" content="2027년 3월 6일 토요일 오후 1시, 정연호 · 정현진 결혼합니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="정연호 ♥ 정현진 결혼합니다">
+  <meta property="og:description" content="2027년 3월 6일 토요일 오후 1시">
+  <meta property="og:image" content="https://jeonghj999.github.io/wedding/images/b/kv.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="b/style.css">
+</head>
+<body class="noir">
+  <main class="page">
+
+    <!-- ① KV -->
+    <header class="kv" aria-label="표지">
+      <img class="kv-photo" src="images/b/kv.jpg" alt="창가에 앉은 신부" width="1333" height="2000">
+      <p class="kv-name left" data-bind="groom.en">Yeonho</p>
+      <p class="kv-name right" data-bind="bride.en">Hyeonjin</p>
+      <div class="kv-title">
+        <h1>Our First Page</h1>
+        <p>We're getting married</p>
+      </div>
+      <div class="kv-foot">
+        <span id="kvDate">2027.03.06</span>
+        <span>With Love</span>
+        <span id="kvTime">SAT 1:00PM</span>
+      </div>
+    </header>
+
+    <!-- ② 초대 -->
+    <section class="section invite" aria-labelledby="celebrate">
+      <p class="star" aria-hidden="true">✷</p>
+      <p class="caps" id="celebrate">Celebrate!</p>
+      <figure class="banner"><img src="images/b/banner.jpg" alt="흰 부케를 든 신랑의 손" loading="lazy"></figure>
+      <h2 class="party"><span>Our,</span><span>Wedding</span><em>Party</em></h2>
+      <div class="message" id="message"></div>
+      <div class="couple">
+        <p><span class="role">신랑</span> <strong data-bind="groom.ko">정연호</strong></p>
+        <span class="couple-dot" aria-hidden="true"></span>
+        <p><span class="role">신부</span> <strong data-bind="bride.ko">정현진</strong></p>
+      </div>
+    </section>
+
+    <!-- ③ 날짜 -->
+    <section class="section date" aria-labelledby="dateTitle">
+      <p class="caps" id="dateTitle">Date</p>
+      <figure class="date-photo"><img src="images/gallery/08.jpg" alt="계단을 내려가는 두 사람" loading="lazy"></figure>
+      <p class="month" id="calMonth" data-full="1">March.</p>
+      <div class="calendar" id="calendar" aria-label="3월 달력, 6일 표시"></div>
+      <p class="date-en" id="dateEn">Saturday, March 6, 2027 · 1:00PM</p>
+      <p class="dday" id="dday">D-</p>
+      <div class="countdown" id="countdown" aria-live="off">
+        <div><b id="cdD">0</b><span>Days</span></div>
+        <div><b id="cdH">00</b><span>Hours</span></div>
+        <div><b id="cdM">00</b><span>Min</span></div>
+        <div><b id="cdS">00</b><span>Sec</span></div>
+      </div>
+      <p class="dday-text" id="ddayText"></p>
+      <p class="date-ko" id="dateKo" hidden></p>
+    </section>
+
+    <!-- ④ 영상 -->
+    <section class="film" aria-label="웨딩 영상">
+      <div class="film-box" id="filmBox">
+        <img class="film-poster" id="filmPoster" src="images/main.jpg" alt="">
+        <p class="film-label">Our Film</p>
+        <button class="play" id="playBtn" type="button" aria-label="영상 재생">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+        <button class="sound" id="soundBtn" type="button" aria-label="소리 켜기" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9h4l5-4v14l-5-4H4z"/><path class="off" d="M17 9l5 6M22 9l-5 6"/><path class="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        </button>
+        <p class="film-note" id="filmNote" hidden>영상은 곧 공개될 예정이에요</p>
+      </div>
+    </section>
+
+    <!-- ⑤ 갤러리 -->
+    <section class="section gallery" aria-labelledby="galTitle">
+      <p class="eyebrow" id="galTitle">Gallery</p>
+      <div class="viewer" id="viewer">
+        <div class="viewer-track" id="viewerTrack"></div>
+        <button class="nav prev" id="prevBtn" type="button" aria-label="이전 사진">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="nav next" id="nextBtn" type="button" aria-label="다음 사진">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <p class="counter" id="counter">1 / 1</p>
+      </div>
+      <div class="thumbs" id="thumbs" role="tablist" aria-label="사진 목록"></div>
+    </section>
+
+    <!-- ⑥ 오시는 길 -->
+    <section class="section location" aria-labelledby="locTitle">
+      <p class="eyebrow" id="locTitle">Location</p>
+      <h2 class="venue-name" id="venueName">당산 그랜드컨벤션센터</h2>
+      <p class="venue-addr">
+        <span id="venueAddr">서울 영등포구 양평로 58</span>
+        <button class="icon-btn" id="copyAddr" type="button" aria-label="주소 복사">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+        </button>
+      </p>
+      <p class="venue-tel" id="venueTel" hidden></p>
+
+      <div class="map" id="map">
+        <a class="map-image" id="mapImage" hidden target="_blank" rel="noopener"><img alt="예식장 약도"></a>
+        <div class="map-fallback" id="mapFallback">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <p>지도 앱에서 위치를 확인해 주세요</p>
+        </div>
+      </div>
+      <div class="map-links" id="mapLinks"></div>
+
+      <div class="accordion" id="directions"></div>
+    </section>
+
+    <!-- ⑦ 마음 전하실 곳 -->
+    <section class="section account" aria-labelledby="accTitle">
+      <p class="eyebrow" id="accTitle">Account</p>
+      <h2 class="account-title">마음 전하실 곳</h2>
+      <p class="account-desc">축하의 자리에 함께하지 못하시는 분들을 위해<br>계좌번호를 기재합니다.<br>보내주시는 마음에 깊이 감사드립니다.</p>
+      <div class="accordion" id="accounts"></div>
+    </section>
+
+    <!-- ⑧ 엔딩 크레딧 -->
+    <footer class="ending" id="ending" aria-label="엔딩 크레딧">
+      <img class="ending-photo" id="endingPhoto" src="images/main.jpg" alt="" loading="lazy">
+      <div class="credits-window"><dl class="credits" id="credits"></dl></div>
+    </footer>
+
+    <!-- ⑨ 공유하기 -->
+    <section class="share" aria-label="공유하기">
+      <button class="share-btn kakao" id="shareKakao" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 6l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.3 0 .7.1 1 .1 5 0 9-3.1 9-7s-4-7.3-9-7.3z"/></svg>
+        카카오톡으로 공유하기
+      </button>
+      <button class="share-btn" id="shareLink" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>
+        청첩장 주소 복사하기
+      </button>
+    </section>
+  </main>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

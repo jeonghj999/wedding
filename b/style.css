@@ -1,0 +1,174 @@
+/* =========================================================
+   시안 B — 블랙 시네마 톤
+   기본 구조는 시안 A(css/style.css)를 불러와 쓰고, 색·글꼴·표지·달력만 바꿉니다.
+   ========================================================= */
+@import url("../css/style.css");
+
+:root {
+  color-scheme: dark;
+  --paper: #0C0B0A;        /* 바탕 (완전 검정보다 살짝 따뜻한 검정) */
+  --paper-deep: #161412;   /* 한 톤 밝은 검정 — 칸 구분용 */
+  --ink: #EEE9E2;          /* 글자 (따뜻한 흰색) */
+  --muted: #8F887E;        /* 보조 글자 */
+  --hair: rgba(238, 233, 226, .14);
+  --blush: #EBCFC8;        /* 표지 필기체의 옅은 분홍 */
+  --peony: #E3B7AE;        /* 포인트 (A의 작약색을 어두운 바탕에 맞게 옅게) */
+  --film: #000;
+
+  --f-script: 'Allura', 'Snell Roundhand', cursive;
+  --f-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --f-sans: 'Noto Sans KR', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  --noise: none;
+}
+
+body.noir { background: #000; color: var(--ink); }
+.noir .page { background: var(--paper); box-shadow: none; }
+
+/* 공통 제목: 기울인 대문자 */
+.caps {
+  margin: 0 0 26px;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.noir .eyebrow {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: .04em;
+  text-indent: 0;
+}
+
+/* ---------- ① KV ---------- */
+.kv {
+  position: relative;
+  height: min(100svh, 880px);
+  min-height: 600px;
+  overflow: hidden;
+  color: #fff;
+}
+.kv-photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: grayscale(.25) contrast(1.05) brightness(.82);
+}
+.kv::after {   /* 가장자리와 아래쪽을 검정으로 — 3번 레퍼런스처럼 */
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 38%, transparent 40%, rgba(12, 11, 10, .7) 78%, var(--paper) 100%),
+    linear-gradient(to bottom, rgba(12, 11, 10, .35) 0%, transparent 18%, transparent 48%, rgba(12, 11, 10, .85) 80%, var(--paper) 100%);
+}
+.kv > *:not(.kv-photo) { position: absolute; z-index: 1; margin: 0; }
+.kv-name {
+  top: calc(28px + env(safe-area-inset-top, 0px));
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.kv-name.left { left: 24px; }
+.kv-name.right { right: 24px; }
+.kv-title { left: 0; right: 0; bottom: 21%; text-align: center; }
+.kv-title h1 {
+  margin: 0;
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-size: clamp(52px, 16vw, 72px);
+  line-height: 1;
+  color: var(--blush);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .45);
+}
+.kv-title p {
+  margin: 6px 0 0;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(255, 255, 255, .82);
+}
+.kv-foot {
+  left: 24px; right: 24px; bottom: 7%;
+  display: flex; justify-content: space-between;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kv-photo { animation: kv-in 2.4s cubic-bezier(.2, .6, .2, 1) both; }
+  .kv-title { animation: kv-fade 1.6s .6s ease both; }
+  @keyframes kv-in { from { transform: scale(1.08); opacity: .001; } }
+  @keyframes kv-fade { from { opacity: .001; transform: translateY(10px); } }
+}
+
+/* ---------- ② 초대 ---------- */
+.noir .invite { padding-top: 64px; }
+.star { margin: 0 0 6px; font-size: 22px; line-height: 1; }
+.banner { margin: 0 auto; }
+.banner img { width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; object-position: center 40%; }
+.party {
+  margin: 44px 0 40px;
+  display: grid;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+.party em {
+  font-family: var(--f-script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 56px;
+  text-transform: none;
+  line-height: .9;
+}
+.noir .message { font-family: var(--f-sans); font-weight: 300; font-size: 14px; color: #BDB6AC; line-height: 2; }
+.noir .couple strong { color: var(--ink); }
+
+/* ---------- ③ 날짜 (4번 레퍼런스) ---------- */
+.noir .date { background: var(--paper); border: 0; }
+.date-photo { margin: 0 auto 40px; width: 62%; max-width: 260px; }
+.date-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 60%; filter: grayscale(1) contrast(1.08); }
+.noir .month { margin: 0 0 14px; font-family: var(--f-script); font-style: normal; font-size: 40px; }
+.calendar {
+  margin: 0 auto;
+  width: max-content;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(9, 30px);
+  row-gap: 6px;
+  justify-items: center;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.calendar span { width: 30px; height: 30px; display: grid; place-items: center; }
+.calendar .day-mark { border: 1px solid var(--ink); border-radius: 50%; }
+.date-en { margin: 26px 0 0; font-family: var(--f-display); font-style: italic; font-size: 17px; color: var(--muted); }
+.dday { margin: 30px 0 0; font-size: 17px; font-weight: 500; letter-spacing: .02em; }
+.noir .countdown { margin-top: 30px; }
+.noir .countdown b { font-family: var(--f-display); }
+.noir .dday-text { color: var(--muted); font-size: 13px; }
+.noir .dday-text b { color: var(--ink); }
+
+/* ---------- 나머지 구역 색 맞춤 ---------- */
+.noir .gallery .viewer, .noir .placeholder { background: var(--paper-deep); }
+.noir .placeholder b { color: #3A3632; }
+.noir .nav { background: rgba(12, 11, 10, .6); }
+.noir .nav svg { stroke: var(--ink); }
+.noir .location, .noir .account { background: var(--paper); border-color: var(--hair); }
+.noir .map { background: var(--paper-deep); }
+.noir .map-links a { color: var(--ink); }
+.noir .fold { background: rgba(238, 233, 226, .04); }
+.noir .dir-item p, .noir .account-desc { color: #BDB6AC; }
+.noir .copy-btn { background: transparent; border-color: var(--ink); color: var(--ink); }
+.noir .copy-btn:disabled { border-color: var(--hair); color: #5A554F; }
+.noir .toast { background: rgba(238, 233, 226, .92); color: #111; }
