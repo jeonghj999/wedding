@@ -430,7 +430,8 @@ button { font: inherit; color: inherit; }
 }
 .map-fallback p { margin: 0; }
 .map-fallback svg { width: 34px; height: 34px; fill: none; stroke: var(--peony); stroke-width: 1.3; }
-.map-canvas { position: absolute; inset: 0; }
+/* 네이버 지도가 이 칸의 position을 relative로 바꿔버리므로 크기를 직접 지정 */
+.map-canvas { position: absolute !important; top: 0; left: 0; width: 100%; height: 100%; }
 
 .map-links {
   margin: 0 -24px;
