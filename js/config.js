@@ -29,7 +29,8 @@ window.WEDDING = {
   video: {
     youtubeId: 'xnmh47Bneio',
     file: '',
-    poster: 'images/main.jpg'   // 재생 전 보이는 사진
+    poster: 'images/main.jpg',  // 재생 전 보이는 사진
+    autoplay: true              // 스크롤로 영상이 보이면 소리 없이 자동재생 (끄려면 false)
   },
 
   // [6] 갤러리 — images/gallery 폴더에 01.jpg, 02.jpg ... 순서대로 넣으면 자동으로 나타납니다.

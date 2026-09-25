@@ -212,7 +212,7 @@ button { font: inherit; color: inherit; }
 .film { background: var(--film); }
 .film-box {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   max-width: 100%;
   overflow: hidden;
   display: grid;
@@ -528,5 +528,18 @@ button { font: inherit; color: inherit; }
 }
 .js-reveal .reveal.in { opacity: 1; transform: none; }
 
-.film-note a { color: inherit; }
-.film-note.below { position: static; padding: 12px 0 14px; }
+
+/* 자동재생 중에는 포스터·재생버튼 숨김 */
+.film-box.live .film-poster, .film-box.live .play, .film-box.live .film-label { display: none; }
+.film-box iframe { pointer-events: none; }   /* 유튜브 화면을 눌러도 유튜브로 넘어가지 않게 */
+.sound {
+  position: absolute; right: 12px; bottom: 12px; z-index: 2;
+  width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: rgba(21, 20, 19, .55);
+  display: grid; place-items: center; cursor: pointer;
+}
+.sound svg { width: 20px; height: 20px; fill: none; stroke: #F2F0EB; stroke-width: 1.6; stroke-linejoin: round; }
+.sound .spk { fill: #F2F0EB; }
+.sound .wave { display: none; }
+.sound.on .wave { display: inline; }
+.sound.on .off { display: none; }

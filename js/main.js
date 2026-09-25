@@ -84,33 +84,69 @@
   tick();
   setInterval(tick, 1000);
 
-  /* ---------- 영상 ---------- */
+  /* ---------- 영상: 화면에 보이면 소리 없이 자동재생, 벗어나면 멈춤 ---------- */
   var V = W.video || {};
+  var film = { el: null, kind: '', muted: true, playing: false };
   if (V.poster) $('filmPoster').src = V.poster;
-  $('playBtn').addEventListener('click', function () {
+
+  function ytCmd(func) {   // 유튜브 플레이어에 명령 보내기 (재생/멈춤/소리)
+    if (film.el && film.el.contentWindow) {
+      film.el.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: [] }), '*');
+    }
+  }
+  function mountFilm() {
     var box = $('filmBox');
-    if (V.youtubeId) {
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtubeId) + '?autoplay=1&playsinline=1&rel=0';
-      f.title = '웨딩 영상';
-      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-      f.allowFullscreen = true;
-      box.appendChild(f);
-      // 영상이 안 뜨는 환경(일부 앱 내 브라우저 등)을 위한 유튜브 바로가기
-      box.after($('filmNote'));
-      $('filmNote').classList.add('below');
-      $('filmNote').hidden = false;
-      $('filmNote').innerHTML = '<a href="https://youtu.be/' + encodeURIComponent(V.youtubeId) +
-        '" target="_blank" rel="noopener">영상이 안 보이면 유튜브에서 보기 ↗</a>';
-    } else if (V.file) {
+    if (V.file) {
       var v = document.createElement('video');
-      v.src = V.file; v.controls = true; v.autoplay = true; v.playsInline = true;
+      v.src = V.file; v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('playsinline', ''); v.setAttribute('muted', '');
+      v.preload = 'metadata';
       if (V.poster) v.poster = V.poster;
       box.appendChild(v);
+      film.el = v; film.kind = 'file';
+    } else if (V.youtubeId) {
+      var id = encodeURIComponent(V.youtubeId);
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id +
+        '?autoplay=1&mute=1&playsinline=1&loop=1&playlist=' + id +
+        '&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&enablejsapi=1';
+      f.title = '웨딩 영상';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      box.appendChild(f);
+      film.el = f; film.kind = 'yt';
     } else {
       $('filmNote').hidden = false;
+      return false;
     }
+    box.classList.add('live');
+    $('soundBtn').hidden = false;
+    return true;
+  }
+  function playFilm() {
+    if (!film.el && !mountFilm()) return;
+    film.playing = true;
+    if (film.kind === 'file') film.el.play().catch(function () {});
+    else ytCmd('playVideo');
+  }
+  function pauseFilm() {
+    if (!film.el) return;
+    film.playing = false;
+    if (film.kind === 'file') film.el.pause();
+    else ytCmd('pauseVideo');
+  }
+  $('playBtn').addEventListener('click', playFilm);
+  $('soundBtn').addEventListener('click', function () {
+    film.muted = !film.muted;
+    if (film.kind === 'file') film.el.muted = film.muted;
+    else ytCmd(film.muted ? 'mute' : 'unMute');
+    this.classList.toggle('on', !film.muted);
+    this.setAttribute('aria-label', film.muted ? '소리 켜기' : '소리 끄기');
   });
+  if ('IntersectionObserver' in window && V.autoplay !== false) {
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) playFilm(); else pauseFilm();
+    }, { threshold: 0.5 }).observe($('filmBox'));
+  }
 
   /* ---------- 갤러리 ---------- */
   var G = W.gallery;
@@ -290,14 +326,21 @@
   }
 
   // 네이버 지도 (키가 있을 때만)
-  window.navermap_authFailure = function () { /* 키 오류 시 대체 화면 유지 */ };
+  function mapMsg(t) {   // 지도가 안 뜰 때 이유를 지도 자리에 표시
+    var p = $('mapFallback').querySelector('p');
+    if (p) p.textContent = t;
+  }
+  window.navermap_authFailure = function () {
+    mapMsg('지도 인증 실패 — 네이버 콘솔의 Web 서비스 URL과 Client ID를 확인해 주세요');
+  };
   if (VN.naverMapKey) {
     var s = document.createElement('script');
     s.src = 'https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(VN.naverMapKey) +
       (VN.lat && VN.lng ? '' : '&submodules=geocoder');
+    s.onerror = function () { mapMsg('지도 스크립트를 불러오지 못했어요'); };
     s.onload = function () {
       var nm = window.naver && naver.maps;
-      if (!nm) return;
+      if (!nm) return mapMsg('지도 스크립트를 불러오지 못했어요');
       function draw(pos) {
         var el = document.createElement('div');
         el.className = 'map-canvas';
@@ -311,13 +354,17 @@
         $('mapFallback').hidden = true;
         $('mapImage').hidden = true;
       }
-      if (VN.lat && VN.lng) draw(new nm.LatLng(VN.lat, VN.lng));
-      else if (nm.Service) {
+      function geocode() {
         nm.Service.geocode({ query: VN.address }, function (status, res) {
-          var a = status === nm.Service.Status.OK && res.v2 && res.v2.addresses[0];
+          var a = status === nm.Service.Status.OK && res.v2 && res.v2.addresses && res.v2.addresses[0];
           if (a) draw(new nm.LatLng(+a.y, +a.x));
+          else mapMsg('주소로 위치를 찾지 못했어요 — 네이버 콘솔에서 Geocoding 체크를 확인해 주세요');
         });
       }
+      if (VN.lat && VN.lng) draw(new nm.LatLng(VN.lat, VN.lng));
+      // 주소 검색(geocoder)은 지도 본체보다 늦게 준비되므로, 준비 완료 신호를 기다립니다.
+      else if (nm.Service && nm.Service.geocode) geocode();
+      else nm.onJSContentLoaded = geocode;
     };
     document.head.appendChild(s);
   }
