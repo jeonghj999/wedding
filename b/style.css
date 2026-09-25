@@ -2,7 +2,7 @@
    시안 B — 블랙 시네마 톤
    기본 구조는 시안 A(css/style.css)를 불러와 쓰고, 색·글꼴·표지·달력만 바꿉니다.
    ========================================================= */
-@import url("../css/style.css");
+@import url("../css/style.css?v=20260925b");
 
 :root {
   color-scheme: dark;
@@ -137,7 +137,16 @@ body.noir { background: #000; color: var(--ink); }
 /* ---------- ③ 날짜 (4번 레퍼런스) ---------- */
 .noir .date { background: var(--paper); border: 0; }
 .date-photo { margin: 0 auto 40px; width: 62%; max-width: 260px; }
-.date-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 60%; filter: grayscale(1) contrast(1.08); }
+.date-photo { position: relative; }
+.date-photo img {   /* 흐릿하고 옅은 흑백 — 필름 느낌 */
+  width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 60%;
+  filter: grayscale(1) contrast(.72) brightness(1.12) blur(.6px);
+  opacity: .82;
+}
+.date-photo::after {   /* 옅은 안개 한 겹 */
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(238, 233, 226, .08), rgba(12, 11, 10, .25));
+}
 .noir .month { margin: 0 0 14px; font-family: var(--f-script); font-style: normal; font-size: 40px; }
 .calendar {
   margin: 0 auto;

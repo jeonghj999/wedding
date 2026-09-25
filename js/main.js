@@ -95,7 +95,7 @@
     else if (days === 0) text = '오늘, ' + namesKo + ' 두 사람이 결혼합니다.';
     else text = namesKo + ' 두 사람이 부부가 된 지 <b>' + (-days) + '일</b>째입니다.';
     $('ddayText').innerHTML = text;
-    put('dday', days > 0 ? 'D-' + days : days === 0 ? 'D-DAY' : 'D+' + (-days));
+    put('dday', days > 0 ? 'D-' + days + '일' : days === 0 ? 'D-DAY' : 'D+' + (-days));
   }
   tick();
   setInterval(tick, 1000);
