@@ -14,9 +14,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gowun+Batang:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261026b">
-  <link rel="stylesheet" href="css/layout.css?v=20261026b">
-  <link rel="stylesheet" href="css/white.css?v=20261026b">
+  <link rel="stylesheet" href="css/style.css?v=20261026c">
+  <link rel="stylesheet" href="css/layout.css?v=20261026c">
+  <link rel="stylesheet" href="css/white.css?v=20261026c">
 </head>
 <body class="noir blanc">
   <main class="page">
@@ -37,10 +37,17 @@
       </div>
     </header>
 
+    <!-- 표지 아래 핵심 정보 (한글) -->
+    <section class="kv-info" aria-label="예식 정보">
+      <p class="kv-info-date" id="kvKoDate">2027년 3월 6일 토요일 오후 1시</p>
+      <p class="kv-info-place" data-bind="venue.name">당산 그랜드컨벤션센터</p>
+    </section>
+
     <!-- ② 초대 -->
     <section class="section invite" aria-labelledby="celebrate">
       <p class="star" aria-hidden="true">✷</p>
       <p class="caps" id="celebrate">Celebrate!</p>
+      <p class="ko-sub">초대합니다</p>
       <figure class="banner"><img src="images/b/banner.jpg" alt="흰 부케를 든 신랑의 손" loading="lazy"></figure>
       <h2 class="party"><span>Our,</span><span>Wedding</span><em>Party</em></h2>
       <div class="message" id="message"></div>
@@ -54,6 +61,7 @@
     <!-- ③ 날짜 -->
     <section class="section date" aria-labelledby="dateTitle">
       <p class="caps" id="dateTitle">Date</p>
+      <p class="ko-sub">예식 일시</p>
       <figure class="date-photo"><img src="images/c/date.jpg" alt="계단을 내려가는 두 사람" loading="lazy"></figure>
       <p class="month" id="calMonth" data-full="1">March.</p>
       <div class="calendar" id="calendar" aria-label="3월 달력, 6일 표시"></div>
@@ -87,6 +95,7 @@
     <!-- ⑤ 갤러리 -->
     <section class="section gallery" aria-labelledby="galTitle">
       <p class="eyebrow" id="galTitle">Gallery</p>
+      <p class="ko-sub">사진</p>
       <div class="viewer" id="viewer">
         <div class="viewer-track" id="viewerTrack"></div>
         <button class="nav prev" id="prevBtn" type="button" aria-label="이전 사진">
@@ -103,6 +112,7 @@
     <!-- ⑥ 오시는 길 -->
     <section class="section location" aria-labelledby="locTitle">
       <p class="eyebrow" id="locTitle">Location</p>
+      <p class="ko-sub">오시는 길</p>
       <h2 class="venue-name" id="venueName">당산 그랜드컨벤션센터</h2>
       <p class="venue-addr">
         <span id="venueAddr">서울 영등포구 양평로 58</span>
@@ -155,7 +165,7 @@
   </button>
   <p class="toast" id="toast" role="status" aria-live="polite"></p>
 
-  <script src="js/config.js?v=20261026b"></script>
-  <script src="js/main.js?v=20261026b"></script>
+  <script src="js/config.js?v=20261026c"></script>
+  <script src="js/main.js?v=20261026c"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@
     (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : ''));
   put('calMonth', $('calMonth') && $('calMonth').dataset.full ? MON_FULL[M] + '.' : MON_EN[M]);
   put('kvDate', dotDate.replace(/ /g, ''));
+  put('kvKoDate', Y + '년 ' + (M + 1) + '월 ' + D + '일 ' + DOW_KO[dow] + '요일 ' + (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : ''));
   put('kvTime', DOW_EN[dow] + ' ' + time12);
   put('dateEn', DOW_FULL[dow] + ', ' + MON_FULL[M] + ' ' + D + ', ' + Y + ' · ' + time12);
 

@@ -83,3 +83,18 @@ body.blanc { font-family: var(--f-sans); font-weight: 400; letter-spacing: -.01e
 .blanc .fold summary { font-weight: 700; }
 .blanc .calendar { font-family: var(--f-display); font-size: 19px; font-weight: 500; }
 .blanc .calendar .day-mark { font-family: var(--f-display); font-weight: 600; }
+
+/* ---------- 어른들을 위한 한글 안내 ---------- */
+/* 영어 제목 아래 작은 한글 부제 */
+.ko-sub {
+  margin: -18px 0 28px;
+  font-family: var(--f-serif-ko);
+  font-size: 13px;
+  letter-spacing: .14em;
+  color: var(--muted);
+}
+/* 표지 바로 아래 '언제·어디' 두 줄 */
+.kv-info { padding: 8px 24px 4px; text-align: center; background: var(--paper); }
+.kv-info p { margin: 0; font-family: var(--f-serif-ko); color: var(--ink); }
+.kv-info-date { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.kv-info-place { margin-top: 6px !important; font-size: 15px; color: #55514B !important; }
