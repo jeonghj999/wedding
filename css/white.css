@@ -19,7 +19,7 @@ body.blanc { background: var(--paper-deep); color: var(--ink); }
 
 /* ---------- KV: 가장자리가 흰색으로 스며들게 ---------- */
 .blanc .kv { color: var(--ink); }
-.blanc .kv-photo { filter: saturate(.9) brightness(1.02); object-position: 58% 30%; }   /* 두 사람 얼굴이 가운데 오도록 */
+.blanc .kv-photo { filter: saturate(.9) brightness(1.02); object-position: 15% 30%; }   /* 두 사람 얼굴이 다 보이게 왼쪽 기준 */
 .blanc .kv::after {
   background:
     radial-gradient(120% 82% at 50% 36%, transparent 45%, rgba(250, 249, 247, .55) 78%, var(--paper) 100%),
