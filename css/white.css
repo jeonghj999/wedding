@@ -135,3 +135,8 @@ body.blanc { font-family: var(--f-sans); font-weight: 400; letter-spacing: -.01e
 /* 숫자를 키가 고른 형태(lining)로 */
 .blanc { font-variant-numeric: lining-nums; }
 .blanc .calendar, .blanc .countdown b, .blanc .kv-name, .blanc .month, .blanc .date-en { font-variant-numeric: lining-nums tabular-nums; }
+
+/* 구역 제목: '약간 볼드' — 굵은 글꼴 대신 얇은 외곽선으로 살짝만 두껍게 */
+.blanc .ko-title.semi { font-weight: 400; -webkit-text-stroke: .35px currentColor; }
+.blanc .account .ko-title { margin-bottom: 14px; }
+.blanc .account-desc { margin: 0; font-family: var(--f-serif-ko); font-size: 14px; line-height: 1.95; color: #55514B; }
