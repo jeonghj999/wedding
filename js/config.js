@@ -92,7 +92,7 @@ window.WEDDING = {
   //     bank: 은행 이름, number: 계좌번호, holder: 예금주
   accounts: {
     groom: [
-      { role: '신랑',   bank: '', number: '', holder: '정연호' },
+      { role: '신랑',   bank: '카카오뱅크', number: '3333-38-7194466', holder: '정연호' },
       { role: '아버지', bank: '', number: '', holder: '' },
       { role: '어머니', bank: '', number: '', holder: '' }
     ],
