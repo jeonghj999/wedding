@@ -127,7 +127,7 @@ window.WEDDING = {
     url: 'https://jeonghj999.github.io/wedding/',   // 청첩장 주소 (도메인을 사면 바꿔주세요)
     title: '정연호 ♥ 정현진 결혼합니다',
     description: '2027년 3월 6일 토요일 오후 1시 · 당산 그랜드컨벤션센터',
-    image: 'https://jeonghj999.github.io/wedding/images/c/kv.jpg',
+    image: 'https://jeonghj999.github.io/wedding/images/c/kv2.jpg',
     // 카카오 JavaScript 키 — README의 "카카오톡 공유 켜기"를 보고 넣어주세요.
     // 비워두면 휴대폰 기본 공유창(여기서 카카오톡 선택 가능)이 열립니다.
     kakaoKey: ''
