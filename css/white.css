@@ -1,5 +1,5 @@
 /* =========================================================
-   시안 C — 시안 B 구성을 그대로, 바탕만 흰색으로
+   흰색 테마 — layout.css 위에 색만 덮어씀
    ========================================================= */
 
 :root {
@@ -39,3 +39,12 @@ body.blanc { background: var(--paper-deep); color: var(--ink); }
 .blanc .placeholder b { color: #C9C3B9; }
 .blanc .copy-btn:disabled { border-color: var(--hair); color: #B3AEA5; }
 .blanc .toast { background: rgba(30, 29, 27, .9); color: #F2F0EB; }
+
+/* 음악 버튼: 작게 만들어 이름 위쪽 구석에 */
+.bgm {
+  top: calc(6px + env(safe-area-inset-top, 0px));
+  right: max(6px, calc(50% - 230px + 6px));
+  width: 26px; height: 26px;
+}
+.bgm svg { width: 14px; height: 14px; }
+.kv-name { top: calc(38px + env(safe-area-inset-top, 0px)); }
