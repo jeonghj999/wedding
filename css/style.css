@@ -568,3 +568,20 @@ button { font: inherit; color: inherit; }
 .share-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
 .share-btn.kakao { background: #FEE500; border-color: #FEE500; color: #191919; font-weight: 500; }
 .share-btn.kakao svg { fill: #191919; stroke: none; }
+
+/* ---------- 배경음악 버튼 (오른쪽 위 고정) ---------- */
+.bgm {
+  position: fixed; z-index: 30;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: max(12px, calc(50% - 230px + 12px));   /* 460px 폭 페이지의 오른쪽 위 */
+  width: 38px; height: 38px;
+  border: 0; border-radius: 50%;
+  background: rgba(31, 30, 28, .45);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display: grid; place-items: center; cursor: pointer;
+}
+.bgm svg { width: 18px; height: 18px; fill: none; stroke: #F2F0EB; stroke-width: 1.6; stroke-linejoin: round; }
+.bgm .spk { fill: #F2F0EB; }
+.bgm .wave { display: none; }
+.bgm.on .wave { display: inline; }
+.bgm.on .off { display: none; }

@@ -27,10 +27,17 @@ window.WEDDING = {
   //  ① 유튜브: 주소가 https://youtu.be/AbCdEf12345 라면 youtubeId: 'AbCdEf12345'
   //  ② 직접 올린 파일: video 폴더에 넣고 file: 'video/wedding.mp4'
   video: {
-    youtubeId: 'xnmh47Bneio',
-    file: '',
-    poster: 'images/main.jpg',  // 재생 전 보이는 사진
+    youtubeId: '',
+    file: 'video/wedding.mp4',
+    poster: 'images/film-poster.jpg',  // 재생 전 보이는 사진
     autoplay: true              // 스크롤로 영상이 보이면 소리 없이 자동재생 (끄려면 false)
+  },
+
+  // [5-1] 배경음악 — music 폴더에 mp3를 넣고 파일 이름을 적으면 켜집니다. (비워두면 버튼도 안 보임)
+  //   휴대폰은 소리 자동재생을 막아서, 처음 화면을 터치하는 순간 재생이 시작됩니다.
+  music: {
+    file: 'music/bgm.mp3',
+    volume: 0.5        // 0 ~ 1
   },
 
   // [6] 갤러리 — images/gallery 폴더에 01.jpg, 02.jpg ... 순서대로 넣으면 자동으로 나타납니다.

@@ -155,6 +155,7 @@
     film.muted = !film.muted;
     if (film.kind === 'file') film.el.muted = film.muted;
     else ytCmd(film.muted ? 'mute' : 'unMute');
+    if (window.bgmDuck) window.bgmDuck(!film.muted);   // 영상 소리를 켜면 배경음악은 잠시 멈춤
     this.classList.toggle('on', !film.muted);
     this.setAttribute('aria-label', film.muted ? '소리 켜기' : '소리 끄기');
   });
@@ -482,6 +483,53 @@
       io.disconnect();
     }, { threshold: 0.4 });
     io.observe(end);
+  })();
+
+  /* ---------- 배경음악 (오른쪽 위 버튼으로 켜고 끄기) ---------- */
+  (function () {
+    var MU = W.music || {};
+    var btn = $('bgmBtn');
+    if (!MU.file || !btn) return;
+    var audio = new Audio(MU.file);
+    audio.loop = true;
+    audio.preload = 'auto';
+    audio.volume = MU.volume != null ? MU.volume : 0.5;
+    var wanted = true;      // 사용자가 끄지 않았는지
+    var ducked = false;     // 영상 소리 때문에 잠시 멈춤
+    btn.hidden = false;
+    function paint() {
+      var on = wanted && !audio.paused;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기');
+    }
+    function tryPlay() {
+      if (!wanted || ducked) return;
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () {}).then(paint); else paint();
+    }
+    audio.addEventListener('play', paint);
+    audio.addEventListener('pause', paint);
+    // 들어오자마자 재생 시도 → 막히면 첫 터치 때 시작
+    tryPlay();
+    function firstTouch(e) {
+      if (e.target.closest && e.target.closest('#bgmBtn')) return;
+      tryPlay();
+      ['pointerdown', 'touchend', 'keydown'].forEach(function (t) { document.removeEventListener(t, firstTouch, true); });
+    }
+    ['pointerdown', 'touchend', 'keydown'].forEach(function (t) { document.addEventListener(t, firstTouch, true); });
+    btn.addEventListener('click', function () {
+      wanted = audio.paused;
+      if (wanted) { ducked = false; tryPlay(); } else audio.pause();
+      paint();
+    });
+    // 다른 앱으로 나가면 멈추고, 돌아오면 다시
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) audio.pause(); else tryPlay();
+    });
+    window.bgmDuck = function (duck) {
+      ducked = duck;
+      if (duck) audio.pause(); else tryPlay();
+    };
   })();
 
   /* ---------- 표지 엠보싱 테두리 (모서리가 안으로 파인 이중 선) ---------- */
