@@ -30,8 +30,10 @@ body.blanc { background: var(--paper-deep); color: var(--ink); }
 
 /* ---------- 본문 글자색 ---------- */
 .blanc .message, .blanc .dir-item p, .blanc .account-desc { color: #55514B; }
-.blanc .date-photo::after { background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, .12), rgba(250, 249, 247, .2)); }
-.blanc .date-photo img { opacity: .9; filter: grayscale(1) contrast(.75) brightness(1.08) blur(.5px); }
+/* 날짜 사진: 이미 흐린 톤으로 보정된 사진이라 필터 없이, 위쪽 여백을 잘라 아래(두 사람) 기준 */
+.blanc .date-photo::after { display: none; }
+.blanc .date-photo img { opacity: 1; filter: none; aspect-ratio: 3 / 4; object-position: center 100%; }
+.blanc .date-photo { width: 66%; max-width: 280px; }
 
 /* ---------- 칸·버튼 ---------- */
 .blanc .fold { background: #fff; }
@@ -48,3 +50,29 @@ body.blanc { background: var(--paper-deep); color: var(--ink); }
 }
 .bgm svg { width: 14px; height: 14px; }
 .kv-name { top: calc(38px + env(safe-area-inset-top, 0px)); }
+
+/* ---------- 한글 글꼴: 본문 Pretendard, 감성 문구·D-day는 고운바탕 ---------- */
+:root {
+  --f-sans: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  --f-serif-ko: 'Gowun Batang', 'AppleMyungjo', serif;
+}
+body.blanc { font-family: var(--f-sans); font-weight: 400; letter-spacing: -.01em; }
+.blanc .message { font-family: var(--f-serif-ko); font-size: 15px; line-height: 2.1; letter-spacing: -.02em; }
+.blanc .couple strong, .blanc .venue-name, .blanc .account-title { font-family: var(--f-serif-ko); font-weight: 700; letter-spacing: 0; }
+.blanc .dday {
+  margin-top: 30px;
+  font-family: var(--f-serif-ko);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: .02em;
+}
+.blanc .dday-text { font-family: var(--f-serif-ko); font-size: 14px; }
+
+/* ---------- 달력: 예식일을 검정 하트 + 흰 숫자로 ---------- */
+.blanc .calendar .day-mark {
+  border: 0; border-radius: 0;
+  color: #fff;
+  font-weight: 600;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231E1D1B' d='M12 21.3l-1.4-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.3z'/%3E%3C/svg%3E") center 55% / 34px 34px no-repeat;
+  padding-bottom: 2px;
+}
