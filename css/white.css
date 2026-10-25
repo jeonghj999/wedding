@@ -98,3 +98,26 @@ body.blanc { font-family: var(--f-sans); font-weight: 400; letter-spacing: -.01e
 .kv-info p { margin: 0; font-family: var(--f-serif-ko); color: var(--ink); }
 .kv-info-date { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
 .kv-info-place { margin-top: 6px !important; font-size: 15px; color: #55514B !important; }
+
+/* 표지 이름(한글) */
+.blanc .kv-name { font-family: var(--f-serif-ko); font-style: normal; font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: none; }
+.kv-info-hall { margin-top: 2px !important; font-size: 15px; color: #55514B !important; }
+
+/* 한글 구역 제목 (초대합니다 · 예식 일시 · 오시는 길) */
+.ko-title {
+  margin: 0 0 28px;
+  font-family: var(--f-serif-ko);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: .14em;
+  text-indent: .14em;
+}
+
+/* 혼주 · 신랑신부 */
+.blanc .couple { flex-direction: column; gap: 10px; }
+.blanc .couple p { font-family: var(--f-serif-ko); font-size: 15px; }
+.blanc .couple .parents { color: var(--ink); }
+.blanc .couple .rel { color: var(--muted); font-size: 13px; margin-right: 6px; }
+.blanc .couple strong { font-size: 17px; }
+/* 하단 날짜 줄을 없앤 만큼 타이틀을 아래로 */
+.blanc .kv-title { bottom: 9%; }

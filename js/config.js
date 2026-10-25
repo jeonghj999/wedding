@@ -5,8 +5,8 @@
    ========================================================= */
 window.WEDDING = {
   // [3] 신랑 · 신부
-  groom: { ko: '정연호', en: 'Yeonho', full: 'Jung Yeonho' },
-  bride: { ko: '정현진', en: 'Hyeonjin', full: 'Jung Hyeonjin' },
+  groom: { ko: '정연호', en: 'Yeonho', full: 'Jung Yeonho', parents: '정시화 · 유성자' },
+  bride: { ko: '정현진', en: 'Hyeonjin', full: 'Jung Hyeonjin', parents: '정진중 · 손정민' },
 
   // [1] 예식 날짜와 시간 (한국 시간, +09:00 은 그대로 두세요)
   date: '2027-03-06T13:00:00+09:00',
@@ -51,7 +51,7 @@ window.WEDDING = {
   // [7] 예식장
   venue: {
     name: '당산 그랜드컨벤션센터',
-    hall: '',                                  // 홀 이름이 정해지면 예) '5층 그랜드볼룸'
+    hall: '3층 리젠시홀',
     address: '서울 영등포구 양평로 58',
     tel: '',                                   // 예식장 전화번호 (비워두면 안 보임)
 
