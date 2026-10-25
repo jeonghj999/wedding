@@ -26,11 +26,12 @@
   function put(id, v, html) { var e = $(id); if (e) e[html ? 'innerHTML' : 'textContent'] = v; }
   var DOW_FULL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var MON_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  var time12 = h12 + ':' + pad(MIN) + (H < 12 ? 'AM' : 'PM');
+  var time12 = h12 + ':' + pad(MIN) + (H < 12 ? ' AM' : ' PM');
   put('coverDate', dotDate + ' &nbsp;' + DOW_EN[dow] + '&nbsp; ' + h12 + ':' + pad(MIN) + ' ' + (H < 12 ? 'AM' : 'PM'), true);
   put('dateKo', Y + '년 ' + (M + 1) + '월 ' + D + '일 ' + DOW_KO[dow] + '요일 ' +
     (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : ''));
-  put('calMonth', $('calMonth') && $('calMonth').dataset.full ? MON_FULL[M] + '.' : MON_EN[M]);
+  var cm = $('calMonth');
+  put('calMonth', cm && cm.dataset.num ? pad(M + 1) : cm && cm.dataset.full ? MON_FULL[M] + '.' : MON_EN[M]);
   put('kvDate', dotDate.replace(/ /g, ''));
   put('kvKoDate', Y + '년 ' + (M + 1) + '월 ' + D + '일 ' + DOW_KO[dow] + '요일 ' + (H < 12 ? '오전 ' : '오후 ') + h12 + '시' + (MIN ? ' ' + MIN + '분' : ''));
   put('kvTime', DOW_EN[dow] + ' ' + time12);

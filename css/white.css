@@ -121,3 +121,17 @@ body.blanc { font-family: var(--f-sans); font-weight: 400; letter-spacing: -.01e
 .blanc .couple strong { font-size: 17px; }
 /* 하단 날짜 줄을 없앤 만큼 타이틀을 아래로 */
 .blanc .kv-title { bottom: 9%; }
+
+/* ---------- 한글 볼드 걷어내기: 고운바탕 400(보통 굵기)으로 통일 ---------- */
+.blanc .kv-name { font-family: var(--f-display); font-style: italic; font-weight: 500; letter-spacing: .06em; }
+.blanc .kv-info-date, .blanc .venue-name, .blanc .account-title, .blanc .dday,
+.blanc .fold summary, .blanc .ko-title, .blanc .couple strong { font-weight: 400; }
+.kv-info-place { white-space: nowrap; }
+.blanc .couple strong { font-size: 15px; color: var(--ink); }
+.blanc .couple .rel { font-size: 15px; color: var(--ink); margin-right: 4px; }
+.blanc .party { margin-top: 8px; }
+.blanc .banner { margin-bottom: 40px; }
+.blanc .month { font-family: var(--f-display); font-style: italic; font-size: 34px; }
+/* 숫자를 키가 고른 형태(lining)로 */
+.blanc { font-variant-numeric: lining-nums; }
+.blanc .calendar, .blanc .countdown b, .blanc .kv-name, .blanc .month, .blanc .date-en { font-variant-numeric: lining-nums tabular-nums; }
