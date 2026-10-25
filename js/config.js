@@ -97,9 +97,9 @@ window.WEDDING = {
       { role: '어머니', bank: '', number: '', holder: '' }
     ],
     bride: [
-      { role: '신부',   bank: '', number: '', holder: '정현진' },
+      { role: '신부',   bank: '신한', number: '110-486-013030', holder: '정현진' },
       { role: '아버지', bank: '', number: '', holder: '' },
-      { role: '어머니', bank: '', number: '', holder: '' }
+      { role: '어머니', bank: '농협', number: '165-12-361687', holder: '' }
     ]
   },
 
